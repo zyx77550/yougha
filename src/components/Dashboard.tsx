@@ -1,4 +1,5 @@
 import { AgentCard } from "./AgentCard";
+import { APIManager } from "./APIManager";
 import { useToast } from "@/hooks/use-toast";
 
 const agents = [
@@ -73,6 +74,11 @@ export const Dashboard = () => {
       <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text animate-fade-in">
         Tableau de Bord YouGha
       </h1>
+      
+      <div className="mb-8">
+        <APIManager />
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {agents.map((agent) => (
           <AgentCard
