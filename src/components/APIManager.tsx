@@ -27,7 +27,7 @@ export const APIManager = () => {
       toast({
         title: "Clés API sauvegardées",
         description: "Vos clés API ont été enregistrées avec succès",
-        variant: "success",
+        variant: "default",
       });
     } catch (error) {
       toast({
