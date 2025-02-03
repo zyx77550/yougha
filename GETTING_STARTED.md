@@ -4,6 +4,7 @@
 - Node.js (version 18 ou supérieure)
 - npm ou yarn
 - Git
+- GPU compatible WebGPU (recommandé)
 
 ## Installation
 
@@ -72,6 +73,12 @@ yougha/
 ├── public/          # Assets statiques
 └── ...
 ```
+
+## Configuration des Agents IA
+
+1. Configurez vos clés API dans le gestionnaire d'API (icône en haut à droite)
+2. Vérifiez AI_REQUIREMENTS.md pour plus de détails
+3. Redémarrez l'application
 
 ## Troubleshooting
 

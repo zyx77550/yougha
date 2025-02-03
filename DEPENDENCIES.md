@@ -31,8 +31,23 @@
 - Sonner - Notifications toast
 - Vaul - Drawer component
 
+## AI et Machine Learning
+- @huggingface/transformers - Modèles IA
+- openai - API OpenAI
+- perplexity-api - API Perplexity
+- langchain - Chaînes de traitement IA
+
 ## Development Tools
 - ESLint - Linting
 - SWC - Compilateur JavaScript
 - Autoprefixer - PostCSS plugin
 - Lovable Tagger - Development utilities
+
+## Security et Authentication
+- jose - JWT handling
+- crypto-js - Cryptographie
+- secure-ls - Local storage sécurisé
+
+## Monitoring et Analytics
+- @sentry/react - Error tracking
+- web-vitals - Métriques de performance
