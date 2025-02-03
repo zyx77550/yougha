@@ -36,18 +36,46 @@
 - openai - API OpenAI
 - perplexity-api - API Perplexity
 - langchain - Chaînes de traitement IA
+- @tensorflow/tfjs - Machine Learning
+- @mediapipe/tasks-vision - Vision par ordinateur
+- elevenlabs-node - Synthèse vocale
+- stability-client - Génération d'images
 
 ## Development Tools
 - ESLint - Linting
 - SWC - Compilateur JavaScript
 - Autoprefixer - PostCSS plugin
 - Lovable Tagger - Development utilities
+- Jest - Tests unitaires
+- Cypress - Tests E2E
+- Lighthouse - Audit de performance
 
 ## Security et Authentication
 - jose - JWT handling
 - crypto-js - Cryptographie
 - secure-ls - Local storage sécurisé
+- @auth0/auth0-react - Authentification
+- zxcvbn - Force des mots de passe
 
 ## Monitoring et Analytics
 - @sentry/react - Error tracking
 - web-vitals - Métriques de performance
+- mixpanel-browser - Analytics
+- @datadog/browser-rum - Real User Monitoring
+
+## Internationalisation
+- i18next - Traduction
+- react-i18next - Intégration React
+- date-fns - Formatage des dates
+
+## Performance
+- react-virtualized - Listes virtualisées
+- react-window - Fenêtres virtuelles
+- workbox-webpack-plugin - Service Worker
+- compression - Compression des données
+
+## Outils de Développement
+- @storybook/react - Documentation des composants
+- react-docgen - Documentation automatique
+- prettier - Formatage du code
+- husky - Git hooks
