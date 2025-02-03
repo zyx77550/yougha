@@ -1,5 +1,5 @@
 import { AgentCard } from "./AgentCard";
-import { APIManager } from "./APIManager";
+import { APIDialog } from "./APIDialog";
 import { useToast } from "@/hooks/use-toast";
 
 const agents = [
@@ -70,26 +70,30 @@ export const Dashboard = () => {
   const { toast } = useToast();
 
   return (
-    <div className="p-6 w-full min-h-screen bg-gradient-to-br from-[#1A1F2C] to-[#2D1F3D]">
-      <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text animate-fade-in">
-        Tableau de Bord YouGha
-      </h1>
+    <div className="p-6 w-full min-h-screen bg-gradient-to-br from-[#1A1F2C] to-[#2D1F3D] relative overflow-hidden">
+      {/* Background Animation */}
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,hsla(277,75%,84%,1)0%,hsla(297,50%,51%,1)100%)] opacity-5 animate-pulse"></div>
       
-      <div className="mb-8">
-        <APIManager />
-      </div>
+      <div className="relative z-10">
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text animate-fade-in">
+            Tableau de Bord YouGha
+          </h1>
+          <APIDialog />
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {agents.map((agent) => (
-          <AgentCard
-            key={agent.name}
-            name={agent.name}
-            role={agent.role}
-            status={agent.status}
-            isMainAgent={agent.isMainAgent}
-            model={agent.model}
-          />
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {agents.map((agent) => (
+            <AgentCard
+              key={agent.name}
+              name={agent.name}
+              role={agent.role}
+              status={agent.status}
+              isMainAgent={agent.isMainAgent}
+              model={agent.model}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
