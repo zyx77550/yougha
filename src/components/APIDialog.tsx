@@ -12,6 +12,8 @@ interface APIKeys {
   anthropic: string;
   stability: string;
   replicate: string;
+  elevenlabs: string;
+  tensorflow: string;
 }
 
 export const APIDialog = () => {
@@ -22,7 +24,9 @@ export const APIDialog = () => {
     huggingface: localStorage.getItem('huggingface_key') || '',
     anthropic: localStorage.getItem('anthropic_key') || '',
     stability: localStorage.getItem('stability_key') || '',
-    replicate: localStorage.getItem('replicate_key') || ''
+    replicate: localStorage.getItem('replicate_key') || '',
+    elevenlabs: localStorage.getItem('elevenlabs_key') || '',
+    tensorflow: localStorage.getItem('tensorflow_key') || ''
   });
 
   const handleSave = () => {
@@ -45,15 +49,30 @@ export const APIDialog = () => {
     }
   };
 
+  const apiLinks = {
+    openai: "https://platform.openai.com/api-keys",
+    github: "https://github.com/settings/tokens",
+    huggingface: "https://huggingface.co/settings/tokens",
+    anthropic: "https://console.anthropic.com/account/keys",
+    stability: "https://platform.stability.ai/account/keys",
+    replicate: "https://replicate.com/account/api-tokens",
+    elevenlabs: "https://elevenlabs.io/speech-synthesis",
+    tensorflow: "https://www.tensorflow.org/js"
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="icon" className="relative">
-          <KeySquare className="h-5 w-5" />
-          <span className="sr-only">Configurer les API</span>
+        <Button 
+          variant="outline" 
+          size="lg"
+          className="fixed top-4 right-4 bg-gradient-to-r from-amber-500 to-purple-600 text-white hover:from-amber-600 hover:to-purple-700 z-50"
+        >
+          <KeySquare className="h-5 w-5 mr-2" />
+          Configurer les API
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-card">
+      <DialogContent className="sm:max-w-[600px] bg-card">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text">
             Configuration des API
@@ -61,10 +80,20 @@ export const APIDialog = () => {
         </DialogHeader>
         <div className="grid gap-4 py-4">
           {Object.entries(apiKeys).map(([key, value]) => (
-            <div key={key} className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor={key} className="text-right capitalize">
-                {key}
-              </label>
+            <div key={key} className="grid gap-2">
+              <div className="flex items-center justify-between">
+                <label htmlFor={key} className="text-sm font-medium capitalize">
+                  {key} API Key
+                </label>
+                <a
+                  href={apiLinks[key as keyof typeof apiLinks]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-blue-500 hover:text-blue-600"
+                >
+                  Obtenir une clé
+                </a>
+              </div>
               <Input
                 id={key}
                 type="password"
