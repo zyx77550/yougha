@@ -1,5 +1,8 @@
 import { AgentCard } from "./AgentCard";
 import { APIDialog } from "./APIDialog";
+import { GitDialog } from "./GitDialog";
+import { TerminalDialog } from "./TerminalDialog"; 
+import { ChatDialog } from "./ChatDialog";
 import { useToast } from "@/hooks/use-toast";
 
 const agents = [
@@ -79,7 +82,12 @@ export const Dashboard = () => {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text animate-fade-in">
             Tableau de Bord YouGha
           </h1>
-          <APIDialog />
+          <div className="flex gap-2">
+            <APIDialog />
+            <GitDialog />
+            <TerminalDialog />
+            <ChatDialog />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
