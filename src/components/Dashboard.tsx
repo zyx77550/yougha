@@ -4,13 +4,8 @@ import { GitDialog } from "./GitDialog";
 import { TerminalDialog } from "./TerminalDialog"; 
 import { ChatDialog } from "./ChatDialog";
 import { useToast } from "@/hooks/use-toast";
-import { createClient } from '@supabase/supabase-js';
-
-// Création du client Supabase
-const supabase = createClient(
-  'https://your-project-url.supabase.co',
-  'your-anon-key'
-);
+import { supabase, checkSupabaseConnection } from '@/lib/supabase';
+import { useEffect } from 'react';
 
 const agents = [
   {
@@ -79,9 +74,23 @@ const agents = [
 export const Dashboard = () => {
   const { toast } = useToast();
 
+  useEffect(() => {
+    const checkConnection = async () => {
+      const isConnected = await checkSupabaseConnection();
+      if (!isConnected) {
+        toast({
+          title: "Erreur de connexion",
+          description: "Impossible de se connecter à Supabase. Vérifiez votre configuration.",
+          variant: "destructive",
+        });
+      }
+    };
+    
+    checkConnection();
+  }, [toast]);
+
   return (
     <div className="p-6 w-full min-h-screen bg-gradient-to-br from-[#1A1F2C] to-[#2D1F3D] relative overflow-hidden">
-      {/* Background Animation */}
       <div className="absolute inset-0 bg-[linear-gradient(90deg,hsla(277,75%,84%,1)0%,hsla(297,50%,51%,1)100%)] opacity-5 animate-pulse"></div>
       
       <div className="relative z-10">

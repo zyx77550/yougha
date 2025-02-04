@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 
+// Configuration Supabase
 const supabase = createClient(
   'https://your-project-url.supabase.co',
   'your-anon-key'
@@ -24,7 +25,7 @@ function createWindow() {
     mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
   }
 
-  // Gestion des événements IPC
+  // Gestion des événements IPC pour Supabase
   ipcMain.handle('supabase-query', async (event, { action, data }) => {
     try {
       switch (action) {
@@ -32,6 +33,12 @@ function createWindow() {
           return await supabase.from(data.table).select();
         case 'insert':
           return await supabase.from(data.table).insert(data.payload);
+        case 'update':
+          return await supabase.from(data.table).update(data.payload).match(data.match);
+        case 'delete':
+          return await supabase.from(data.table).delete().match(data.match);
+        case 'check-connection':
+          return await supabase.from('health_check').select('*').limit(1);
         default:
           throw new Error('Action non supportée');
       }
