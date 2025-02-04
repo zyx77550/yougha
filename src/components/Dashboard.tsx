@@ -4,6 +4,13 @@ import { GitDialog } from "./GitDialog";
 import { TerminalDialog } from "./TerminalDialog"; 
 import { ChatDialog } from "./ChatDialog";
 import { useToast } from "@/hooks/use-toast";
+import { createClient } from '@supabase/supabase-js';
+
+// Création du client Supabase
+const supabase = createClient(
+  'https://your-project-url.supabase.co',
+  'your-anon-key'
+);
 
 const agents = [
   {
@@ -79,15 +86,15 @@ export const Dashboard = () => {
       
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text animate-fade-in">
-            Tableau de Bord YouGha
-          </h1>
-          <div className="flex gap-2">
-            <APIDialog />
+          <div className="flex items-center gap-2">
             <GitDialog />
             <TerminalDialog />
             <ChatDialog />
           </div>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text animate-fade-in">
+            Tableau de Bord YouGha
+          </h1>
+          <APIDialog />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
