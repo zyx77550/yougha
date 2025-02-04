@@ -92,7 +92,7 @@ export const Dashboard = () => {
             <ChatDialog />
           </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text animate-fade-in">
-            Tableau de Bord YouGha
+            YouGha
           </h1>
           <APIDialog />
         </div>
