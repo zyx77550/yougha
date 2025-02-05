@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { checkSupabaseConnection } from '@/lib/supabase';
 import { useEffect } from 'react';
 import { supabase } from "@/integrations/supabase/client";
+import { motion } from "framer-motion";
 
 const agents = [
   {
@@ -73,6 +74,21 @@ const agents = [
   },
 ];
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  show: { y: 0, opacity: 1 }
+};
+
 export const Dashboard = () => {
   const { toast } = useToast();
 
@@ -92,34 +108,46 @@ export const Dashboard = () => {
   }, [toast]);
 
   return (
-    <div className="p-6 w-full min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0%,transparent_100%)] opacity-50"></div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
+      {/* Ambient glow effects */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full filter blur-[100px] animate-pulse"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/30 rounded-full filter blur-[100px] animate-pulse delay-1000"></div>
       
-      <div className="relative z-10">
-        <div className="flex items-center justify-between mb-8">
+      <div className="relative z-10 p-6">
+        <motion.div 
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="flex items-center justify-between mb-8"
+        >
           <div className="flex items-center gap-2">
             <GitDialog />
             <TerminalDialog />
             <ChatDialog />
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text animate-fade-in">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text animate-gradient">
             YouGha
           </h1>
           <APIDialog />
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
+        <motion.div 
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {agents.map((agent) => (
-            <AgentCard
-              key={agent.name}
-              name={agent.name}
-              role={agent.role}
-              status={agent.status}
-              isMainAgent={agent.isMainAgent}
-              model={agent.model}
-            />
+            <motion.div key={agent.name} variants={item}>
+              <AgentCard
+                name={agent.name}
+                role={agent.role}
+                status={agent.status}
+                isMainAgent={agent.isMainAgent}
+                model={agent.model}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

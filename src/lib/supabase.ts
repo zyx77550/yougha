@@ -25,7 +25,7 @@ export const initSupabase = async () => {
 // Connection check utility
 export const checkSupabaseConnection = async () => {
   try {
-    const { data, error } = await supabaseInternal.rpc('check_health');
+    const { data, error } = await supabaseInternal.from('health_check').select('*').limit(1);
     if (error) {
       console.error('Erreur de connexion Supabase:', error);
       return false;
