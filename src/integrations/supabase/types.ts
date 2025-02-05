@@ -9,7 +9,147 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      ai_agents: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          status: string | null
+          type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          status?: string | null
+          type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          status?: string | null
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      api_keys: {
+        Row: {
+          created_at: string
+          id: string
+          key_type: string
+          last_used: string | null
+          name: string
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          key_type: string
+          last_used?: string | null
+          name: string
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          key_type?: string
+          last_used?: string | null
+          name?: string
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      merges: {
+        Row: {
+          created_at: string
+          id: string
+          project1_id: string
+          project2_id: string
+          result_url: string | null
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          project1_id: string
+          project2_id: string
+          result_url?: string | null
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          project1_id?: string
+          project2_id?: string
+          result_url?: string | null
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "merges_project1_id_fkey"
+            columns: ["project1_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "merges_project2_id_fkey"
+            columns: ["project2_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      projects: {
+        Row: {
+          branches: number | null
+          created_at: string
+          description: string | null
+          id: string
+          language: string | null
+          name: string
+          repo_url: string
+          stars: number | null
+          user_id: string
+        }
+        Insert: {
+          branches?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          language?: string | null
+          name: string
+          repo_url: string
+          stars?: number | null
+          user_id: string
+        }
+        Update: {
+          branches?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          language?: string | null
+          name?: string
+          repo_url?: string
+          stars?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
