@@ -1,11 +1,12 @@
+
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 
-// Configuration Supabase
+// Supabase Configuration
 const supabase = createClient(
-  'https://your-project-url.supabase.co',
-  'your-anon-key'
+  'https://vbtvubbdccreingqgfqk.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZidHZ1YmJkY2NyZWluZ3FnZnFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg2MjgyNTEsImV4cCI6MjA1NDIwNDI1MX0.iHGcCQshSdqty54fU0EcJecUYNoL4n-70vX77cg3HkY'
 );
 
 function createWindow() {
@@ -25,7 +26,7 @@ function createWindow() {
     mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
   }
 
-  // Gestion des événements IPC pour Supabase
+  // IPC Event Handlers for Supabase
   ipcMain.handle('supabase-query', async (event, { action, data }) => {
     try {
       switch (action) {

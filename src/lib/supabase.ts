@@ -1,12 +1,13 @@
+
 import { createClient } from '@supabase/supabase-js';
 
-// Configuration par défaut pour le développement
-const supabaseUrl = 'https://your-project-url.supabase.co';
-const supabaseAnonKey = 'your-anon-key';
+const supabaseUrl = 'https://vbtvubbdccreingqgfqk.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZidHZ1YmJkY2NyZWluZ3FnZnFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg2MjgyNTEsImV4cCI6MjA1NDIwNDI1MX0.iHGcCQshSdqty54fU0EcJecUYNoL4n-70vX77cg3HkY';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Import from the centralized client instead
+import { supabase } from "@/integrations/supabase/client";
 
-// Initialisation de Supabase
+// Initialize Supabase
 export const initSupabase = async () => {
   try {
     const { data: { session }, error } = await supabase.auth.getSession();
@@ -21,7 +22,7 @@ export const initSupabase = async () => {
   }
 };
 
-// Fonction utilitaire pour vérifier la connexion
+// Connection check utility
 export const checkSupabaseConnection = async () => {
   try {
     const { data, error } = await supabase.from('health_check').select('*').limit(1);
