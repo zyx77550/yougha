@@ -1,3 +1,4 @@
+
 import { AgentCard } from "./AgentCard";
 import { APIDialog } from "./APIDialog";
 import { GitDialog } from "./GitDialog";
@@ -90,8 +91,8 @@ export const Dashboard = () => {
   }, [toast]);
 
   return (
-    <div className="p-6 w-full min-h-screen bg-gradient-to-br from-[#1A1F2C] to-[#2D1F3D] relative overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,hsla(277,75%,84%,1)0%,hsla(297,50%,51%,1)100%)] opacity-5 animate-pulse"></div>
+    <div className="p-6 w-full min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0%,transparent_100%)] opacity-50"></div>
       
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-8">
@@ -100,13 +101,13 @@ export const Dashboard = () => {
             <TerminalDialog />
             <ChatDialog />
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text animate-fade-in">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-gray-400 text-transparent bg-clip-text animate-fade-in">
             YouGha
           </h1>
           <APIDialog />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
           {agents.map((agent) => (
             <AgentCard
               key={agent.name}
