@@ -5,8 +5,9 @@ import { GitDialog } from "./GitDialog";
 import { TerminalDialog } from "./TerminalDialog"; 
 import { ChatDialog } from "./ChatDialog";
 import { useToast } from "@/hooks/use-toast";
-import { supabase, checkSupabaseConnection } from '@/lib/supabase';
+import { checkSupabaseConnection } from '@/lib/supabase';
 import { useEffect } from 'react';
+import { supabase } from "@/integrations/supabase/client";
 
 const agents = [
   {

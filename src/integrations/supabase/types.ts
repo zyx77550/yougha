@@ -69,6 +69,24 @@ export type Database = {
         }
         Relationships: []
       }
+      health_check: {
+        Row: {
+          id: string
+          last_checked: string | null
+          status: string
+        }
+        Insert: {
+          id?: string
+          last_checked?: string | null
+          status?: string
+        }
+        Update: {
+          id?: string
+          last_checked?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       merges: {
         Row: {
           created_at: string
@@ -113,6 +131,30 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      messages: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          type: string
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          type?: string
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          type?: string
+          user_id?: string | null
+        }
+        Relationships: []
       }
       projects: {
         Row: {
