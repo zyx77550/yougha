@@ -7,7 +7,6 @@ import { ChatDialog } from "./ChatDialog";
 import { useToast } from "@/hooks/use-toast";
 import { checkSupabaseConnection } from '@/lib/supabase';
 import { useEffect } from 'react';
-import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 
 const agents = [
@@ -79,14 +78,22 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1
+      staggerChildren: 0.1,
+      delayChildren: 0.3
     }
   }
 };
 
 const item = {
   hidden: { y: 20, opacity: 0 },
-  show: { y: 0, opacity: 1 }
+  show: { 
+    y: 0, 
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100
+    }
+  }
 };
 
 export const Dashboard = () => {
@@ -109,22 +116,24 @@ export const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
-      {/* Ambient glow effects */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full filter blur-[100px] animate-pulse"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/30 rounded-full filter blur-[100px] animate-pulse delay-1000"></div>
+      {/* Ambient background effects */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-500/20 via-transparent to-transparent blur-2xl"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full filter blur-[120px] animate-pulse"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full filter blur-[120px] animate-pulse delay-1000"></div>
       
-      <div className="relative z-10 p-6">
+      <div className="relative z-10 container mx-auto p-6">
         <motion.div 
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex items-center justify-between mb-8"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <GitDialog />
             <TerminalDialog />
             <ChatDialog />
           </div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text animate-gradient">
+          <h1 className="text-6xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text animate-gradient drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
             YouGha
           </h1>
           <APIDialog />
@@ -134,10 +143,14 @@ export const Dashboard = () => {
           variants={container}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4"
         >
           {agents.map((agent) => (
-            <motion.div key={agent.name} variants={item}>
+            <motion.div 
+              key={agent.name} 
+              variants={item}
+              className="transform-gpu"
+            >
               <AgentCard
                 name={agent.name}
                 role={agent.role}

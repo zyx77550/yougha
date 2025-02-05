@@ -40,8 +40,20 @@
 
 @layer utilities {
   .animate-gradient {
-    background-size: 200% 200%;
+    background-size: 300% 300%;
     animation: gradient 8s linear infinite;
+  }
+  
+  .glass-morphism {
+    @apply backdrop-blur-xl bg-white/5 border border-white/10;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 20px theme('colors.purple.500/40');
   }
   
   @keyframes gradient {
