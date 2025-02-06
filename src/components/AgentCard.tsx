@@ -21,11 +21,11 @@ export const AgentCard = ({ name, role, status, isMainAgent, model }: AgentCardP
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className={cn(
-        "p-6 rounded-2xl transition-all duration-300",
+        "p-6 rounded-2xl transition-all duration-300 backdrop-blur-xl border",
         isMainAgent 
-          ? "bg-gradient-to-br from-purple-900/90 via-blue-900/90 to-teal-900/90 border border-purple-500/50 shadow-[0_0_30px_rgba(168,85,247,0.3)]" 
-          : "bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-900/90 border border-gray-700/50",
-        "hover:shadow-[0_0_30px_rgba(168,85,247,0.2)] backdrop-blur-xl"
+          ? "bg-gradient-to-br from-purple-900/90 via-blue-900/90 to-purple-900/90 border-purple-500/50 shadow-[0_0_30px_rgba(168,85,247,0.3)]" 
+          : "bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-900/90 border-gray-700/50",
+        "hover:shadow-[0_0_30px_rgba(168,85,247,0.2)]"
       )}
     >
       <motion.div 
@@ -51,7 +51,7 @@ export const AgentCard = ({ name, role, status, isMainAgent, model }: AgentCardP
               <Brain className="w-6 h-6 text-gray-400" />
             )}
           </motion.div>
-          <h3 className="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-purple-200 to-teal-200 bg-clip-text text-transparent">
+          <h3 className="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
             {name}
           </h3>
         </div>
@@ -59,13 +59,13 @@ export const AgentCard = ({ name, role, status, isMainAgent, model }: AgentCardP
           <Activity 
             className={cn(
               "w-4 h-4 transition-colors duration-300",
-              status === "active" ? "text-teal-400 animate-pulse" :
+              status === "active" ? "text-green-400 animate-pulse" :
               status === "busy" ? "text-amber-400" : "text-gray-400"
             )} 
           />
           <span className={cn(
             "text-sm capitalize",
-            status === "active" ? "text-teal-400" :
+            status === "active" ? "text-green-400" :
             status === "busy" ? "text-amber-400" : "text-gray-400"
           )}>
             {status}
@@ -77,7 +77,7 @@ export const AgentCard = ({ name, role, status, isMainAgent, model }: AgentCardP
         <TooltipTrigger asChild>
           <motion.div 
             whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2 text-xs text-teal-300 bg-teal-950/30 p-2 rounded-lg w-fit border border-teal-500/20 hover:border-teal-500/40 transition-colors"
+            className="flex items-center gap-2 text-xs text-blue-300 bg-blue-950/30 p-2 rounded-lg w-fit border border-blue-500/20 hover:border-blue-500/40 transition-colors"
           >
             <Cpu className="w-3 h-3" />
             <span>{model}</span>

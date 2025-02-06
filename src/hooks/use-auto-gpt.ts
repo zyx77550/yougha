@@ -2,6 +2,16 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
+interface AutoGPTInstance {
+  id: string;
+  name: string;
+  status: string;
+  config: any;
+  last_active: string;
+  user_id: string;
+  created_at: string;
+}
+
 export const useAutoGPT = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -15,7 +25,7 @@ export const useAutoGPT = () => {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      return data;
+      return data as AutoGPTInstance[];
     },
   });
 
@@ -23,7 +33,12 @@ export const useAutoGPT = () => {
     mutationFn: async ({ name, config }: { name: string; config: any }) => {
       const { data, error } = await supabase
         .from("auto_gpt_instances")
-        .insert([{ name, config }])
+        .insert([{ 
+          name, 
+          config,
+          user_id: (await supabase.auth.getUser()).data.user?.id,
+          status: "idle"
+        }])
         .select()
         .single();
 

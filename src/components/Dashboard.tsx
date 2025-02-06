@@ -4,10 +4,10 @@ import { GitDialog } from "./GitDialog";
 import { TerminalDialog } from "./TerminalDialog"; 
 import { ChatDialog } from "./ChatDialog";
 import { useToast } from "@/hooks/use-toast";
-import { checkSupabaseConnection } from '@/lib/supabase';
-import { useEffect } from 'react';
+import { useAutoGPT } from "@/hooks/use-auto-gpt";
 import { motion, AnimatePresence } from "framer-motion";
-import { Brain, Sparkles } from "lucide-react";
+import { Brain, Sparkles, Plus } from "lucide-react";
+import { Button } from "./ui/button";
 
 const agents = [
   {
@@ -105,28 +105,24 @@ const item = {
 
 export const Dashboard = () => {
   const { toast } = useToast();
+  const { instances, createInstance } = useAutoGPT();
 
-  useEffect(() => {
-    const checkConnection = async () => {
-      const isConnected = await checkSupabaseConnection();
-      if (!isConnected) {
-        toast({
-          title: "Erreur de connexion",
-          description: "Impossible de se connecter à Supabase. Vérifiez votre configuration.",
-          variant: "destructive",
-        });
+  const handleCreateAutoGPT = () => {
+    createInstance.mutate({
+      name: `Auto-GPT ${instances?.length ?? 0 + 1}`,
+      config: {
+        goals: ["Assist with coding tasks", "Help with project management"],
+        constraints: ["Follow best practices", "Maintain code quality"],
       }
-    };
-    
-    checkConnection();
-  }, [toast]);
+    });
+  };
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D] relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 relative overflow-hidden">
       {/* Ambient background effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-teal-900/20"></div>
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full mix-blend-screen filter blur-[100px] animate-pulse"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full mix-blend-screen filter blur-[100px] animate-pulse delay-1000"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,0.8),rgba(88,28,135,0.2))]"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-screen filter blur-[100px] animate-pulse"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/30 rounded-full mix-blend-screen filter blur-[100px] animate-pulse delay-1000"></div>
       
       <div className="relative z-10 container mx-auto p-6">
         <motion.div 
@@ -147,16 +143,30 @@ export const Dashboard = () => {
             </motion.div>
           </div>
           <motion.h1 
-            className="text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-teal-500 flex items-center gap-4"
+            className="text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 flex items-center gap-4"
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.5 }}
           >
             <Brain className="w-16 h-16 text-purple-400 animate-pulse" />
             YouGha
-            <Sparkles className="w-12 h-12 text-teal-400 animate-pulse" />
+            <Sparkles className="w-12 h-12 text-blue-400 animate-pulse" />
           </motion.h1>
-          <APIDialog />
+          <div className="flex items-center gap-4">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button
+                onClick={handleCreateAutoGPT}
+                className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+              >
+                <Plus className="w-4 h-4" />
+                New Auto-GPT
+              </Button>
+            </motion.div>
+            <APIDialog />
+          </div>
         </motion.div>
 
         <AnimatePresence>
@@ -166,7 +176,7 @@ export const Dashboard = () => {
             animate="show"
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4"
           >
-            {agents.map((agent, index) => (
+            {agents.map((agent) => (
               <motion.div 
                 key={agent.name} 
                 variants={item}
@@ -182,6 +192,22 @@ export const Dashboard = () => {
                   status={agent.status}
                   isMainAgent={agent.isMainAgent}
                   model={agent.model}
+                />
+              </motion.div>
+            ))}
+            
+            {instances?.map((instance) => (
+              <motion.div 
+                key={instance.id} 
+                variants={item}
+                className="transform-gpu hover:translate-y-[-5px] transition-transform duration-300"
+              >
+                <AgentCard
+                  name={instance.name}
+                  role="Auto-GPT Instance"
+                  status={instance.status as "active" | "idle" | "busy"}
+                  isMainAgent={true}
+                  model="gpt-4o"
                 />
               </motion.div>
             ))}
