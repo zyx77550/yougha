@@ -1,9 +1,8 @@
 import { DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { KeySquare } from "lucide-react";
-import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 interface APIKeys {
   openai: string;
@@ -15,6 +14,17 @@ interface APIKeys {
   elevenlabs: string;
   tensorflow: string;
 }
+
+const apiLinks = {
+  openai: "https://platform.openai.com/api-keys",
+  github: "https://github.com/settings/tokens",
+  huggingface: "https://huggingface.co/settings/tokens",
+  anthropic: "https://console.anthropic.com/account/keys",
+  stability: "https://platform.stability.ai/account/keys",
+  replicate: "https://replicate.com/account/api-tokens",
+  elevenlabs: "https://elevenlabs.io/speech-synthesis",
+  tensorflow: "https://www.tensorflow.org/js"
+};
 
 export const APIDialog = () => {
   const { toast } = useToast();
@@ -49,19 +59,8 @@ export const APIDialog = () => {
     }
   };
 
-  const apiLinks = {
-    openai: "https://platform.openai.com/api-keys",
-    github: "https://github.com/settings/tokens",
-    huggingface: "https://huggingface.co/settings/tokens",
-    anthropic: "https://console.anthropic.com/account/keys",
-    stability: "https://platform.stability.ai/account/keys",
-    replicate: "https://replicate.com/account/api-tokens",
-    elevenlabs: "https://elevenlabs.io/speech-synthesis",
-    tensorflow: "https://www.tensorflow.org/js"
-  };
-
   return (
-    <DialogContent className="sm:max-w-[600px] bg-card">
+    <DialogContent className="sm:max-w-[600px] bg-gradient-to-br from-gray-900/90 via-purple-900/30 to-gray-900/90 border border-purple-500/20">
       <DialogHeader>
         <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text">
           Configuration des API
@@ -69,7 +68,13 @@ export const APIDialog = () => {
       </DialogHeader>
       <div className="grid gap-4 py-4">
         {Object.entries(apiKeys).map(([key, value]) => (
-          <div key={key} className="grid gap-2">
+          <motion.div 
+            key={key} 
+            className="grid gap-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="flex items-center justify-between">
               <label htmlFor={key} className="text-sm font-medium capitalize">
                 {key} API Key
@@ -78,7 +83,7 @@ export const APIDialog = () => {
                 href={apiLinks[key as keyof typeof apiLinks]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-blue-500 hover:text-blue-600"
+                className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
               >
                 Obtenir une clé
               </a>
@@ -88,15 +93,15 @@ export const APIDialog = () => {
               type="password"
               value={value}
               onChange={(e) => setApiKeys({ ...apiKeys, [key]: e.target.value })}
-              className="col-span-3 bg-purple-900/20 border-purple-500/30"
+              className="col-span-3 bg-purple-900/20 border-purple-500/30 focus:border-purple-400 transition-colors"
               placeholder={`${key} API key...`}
             />
-          </div>
+          </motion.div>
         ))}
       </div>
       <Button 
         onClick={handleSave}
-        className="w-full bg-gradient-to-r from-amber-500 to-purple-600 hover:from-amber-600 hover:to-purple-700"
+        className="w-full bg-gradient-to-r from-amber-500 to-purple-600 hover:from-amber-600 hover:to-purple-700 transition-all duration-300"
       >
         Sauvegarder les clés API
       </Button>
