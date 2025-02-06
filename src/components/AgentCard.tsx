@@ -18,8 +18,11 @@ interface AgentCardProps {
 export const AgentCard = ({ name, role, status, isMainAgent, model }: AgentCardProps) => {
   return (
     <motion.div 
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.02, y: -5 }}
       whileTap={{ scale: 0.98 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
       className={cn(
         "p-6 rounded-2xl transition-all duration-300 backdrop-blur-xl border",
         isMainAgent 
@@ -32,12 +35,13 @@ export const AgentCard = ({ name, role, status, isMainAgent, model }: AgentCardP
         className="flex items-center justify-between mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
       >
         <div className="flex items-center gap-3">
           <motion.div
             animate={{
               rotate: isMainAgent ? [0, 360] : 0,
+              scale: [1, 1.1, 1],
             }}
             transition={{
               duration: 4,
@@ -55,11 +59,22 @@ export const AgentCard = ({ name, role, status, isMainAgent, model }: AgentCardP
             {name}
           </h3>
         </div>
-        <div className="flex items-center gap-2">
+        <motion.div 
+          className="flex items-center gap-2"
+          animate={status === "active" ? {
+            scale: [1, 1.1, 1],
+            opacity: [1, 0.8, 1],
+          } : {}}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
           <Activity 
             className={cn(
               "w-4 h-4 transition-colors duration-300",
-              status === "active" ? "text-green-400 animate-pulse" :
+              status === "active" ? "text-green-400" :
               status === "busy" ? "text-amber-400" : "text-gray-400"
             )} 
           />
@@ -70,14 +85,24 @@ export const AgentCard = ({ name, role, status, isMainAgent, model }: AgentCardP
           )}>
             {status}
           </span>
-        </div>
+        </motion.div>
       </motion.div>
-      <p className="text-sm text-purple-100/60 font-medium mb-3">{role}</p>
+      <motion.p 
+        className="text-sm text-purple-100/60 font-medium mb-3"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        {role}
+      </motion.p>
       <Tooltip>
         <TooltipTrigger asChild>
           <motion.div 
             whileHover={{ scale: 1.05 }}
             className="flex items-center gap-2 text-xs text-blue-300 bg-blue-950/30 p-2 rounded-lg w-fit border border-blue-500/20 hover:border-blue-500/40 transition-colors"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
           >
             <Cpu className="w-3 h-3" />
             <span>{model}</span>

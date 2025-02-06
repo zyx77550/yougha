@@ -1,8 +1,8 @@
 import { AgentCard } from "./AgentCard";
-import { APIDialog } from "./APIDialog";
 import { GitDialog } from "./GitDialog";
 import { TerminalDialog } from "./TerminalDialog"; 
 import { ChatDialog } from "./ChatDialog";
+import { FloatingAPIButton } from "./FloatingAPIButton";
 import { useToast } from "@/hooks/use-toast";
 import { useAutoGPT } from "@/hooks/use-auto-gpt";
 import { motion, AnimatePresence } from "framer-motion";
@@ -121,8 +121,31 @@ export const Dashboard = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 relative overflow-hidden">
       {/* Ambient background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,0.8),rgba(88,28,135,0.2))]"></div>
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-screen filter blur-[100px] animate-pulse"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/30 rounded-full mix-blend-screen filter blur-[100px] animate-pulse delay-1000"></div>
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3] 
+        }}
+        transition={{ 
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-screen filter blur-[100px]"
+      />
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.1, 1],
+          opacity: [0.2, 0.4, 0.2] 
+        }}
+        transition={{ 
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1
+        }}
+        className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/30 rounded-full mix-blend-screen filter blur-[100px]"
+      />
       
       <div className="relative z-10 container mx-auto p-6">
         <motion.div 
@@ -131,17 +154,16 @@ export const Dashboard = () => {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex items-center justify-between mb-12"
         >
-          <div className="flex items-center gap-4">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex space-x-3"
-            >
-              <GitDialog />
-              <TerminalDialog />
-              <ChatDialog />
-            </motion.div>
-          </div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex space-x-3"
+          >
+            <GitDialog />
+            <TerminalDialog />
+            <ChatDialog />
+          </motion.div>
+
           <motion.h1 
             className="text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 flex items-center gap-4"
             initial={{ scale: 0.9 }}
@@ -152,21 +174,19 @@ export const Dashboard = () => {
             YouGha
             <Sparkles className="w-12 h-12 text-blue-400 animate-pulse" />
           </motion.h1>
-          <div className="flex items-center gap-4">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button
+              onClick={handleCreateAutoGPT}
+              className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
             >
-              <Button
-                onClick={handleCreateAutoGPT}
-                className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
-              >
-                <Plus className="w-4 h-4" />
-                New Auto-GPT
-              </Button>
-            </motion.div>
-            <APIDialog />
-          </div>
+              <Plus className="w-4 h-4" />
+              New Auto-GPT
+            </Button>
+          </motion.div>
         </motion.div>
 
         <AnimatePresence>
@@ -214,6 +234,8 @@ export const Dashboard = () => {
           </motion.div>
         </AnimatePresence>
       </div>
+
+      <FloatingAPIButton />
     </div>
   );
 };
