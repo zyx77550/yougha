@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { KeySquare } from "lucide-react";
@@ -61,57 +61,45 @@ export const APIDialog = () => {
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button 
-          variant="outline" 
-          size="lg"
-          className="fixed top-4 right-4 bg-gradient-to-r from-amber-500 to-purple-600 text-white hover:from-amber-600 hover:to-purple-700 z-50"
-        >
-          <KeySquare className="h-5 w-5 mr-2" />
-          Configurer les API
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] bg-card">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text">
-            Configuration des API
-          </DialogTitle>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          {Object.entries(apiKeys).map(([key, value]) => (
-            <div key={key} className="grid gap-2">
-              <div className="flex items-center justify-between">
-                <label htmlFor={key} className="text-sm font-medium capitalize">
-                  {key} API Key
-                </label>
-                <a
-                  href={apiLinks[key as keyof typeof apiLinks]}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-blue-500 hover:text-blue-600"
-                >
-                  Obtenir une clé
-                </a>
-              </div>
-              <Input
-                id={key}
-                type="password"
-                value={value}
-                onChange={(e) => setApiKeys({ ...apiKeys, [key]: e.target.value })}
-                className="col-span-3 bg-purple-900/20 border-purple-500/30"
-                placeholder={`${key} API key...`}
-              />
+    <DialogContent className="sm:max-w-[600px] bg-card">
+      <DialogHeader>
+        <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text">
+          Configuration des API
+        </DialogTitle>
+      </DialogHeader>
+      <div className="grid gap-4 py-4">
+        {Object.entries(apiKeys).map(([key, value]) => (
+          <div key={key} className="grid gap-2">
+            <div className="flex items-center justify-between">
+              <label htmlFor={key} className="text-sm font-medium capitalize">
+                {key} API Key
+              </label>
+              <a
+                href={apiLinks[key as keyof typeof apiLinks]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-blue-500 hover:text-blue-600"
+              >
+                Obtenir une clé
+              </a>
             </div>
-          ))}
-        </div>
-        <Button 
-          onClick={handleSave}
-          className="w-full bg-gradient-to-r from-amber-500 to-purple-600 hover:from-amber-600 hover:to-purple-700"
-        >
-          Sauvegarder les clés API
-        </Button>
-      </DialogContent>
-    </Dialog>
+            <Input
+              id={key}
+              type="password"
+              value={value}
+              onChange={(e) => setApiKeys({ ...apiKeys, [key]: e.target.value })}
+              className="col-span-3 bg-purple-900/20 border-purple-500/30"
+              placeholder={`${key} API key...`}
+            />
+          </div>
+        ))}
+      </div>
+      <Button 
+        onClick={handleSave}
+        className="w-full bg-gradient-to-r from-amber-500 to-purple-600 hover:from-amber-600 hover:to-purple-700"
+      >
+        Sauvegarder les clés API
+      </Button>
+    </DialogContent>
   );
 };
