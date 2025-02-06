@@ -1,4 +1,3 @@
-
 import { AgentCard } from "./AgentCard";
 import { APIDialog } from "./APIDialog";
 import { GitDialog } from "./GitDialog";
@@ -7,12 +6,20 @@ import { ChatDialog } from "./ChatDialog";
 import { useToast } from "@/hooks/use-toast";
 import { checkSupabaseConnection } from '@/lib/supabase';
 import { useEffect } from 'react';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Brain, Sparkles } from "lucide-react";
 
 const agents = [
   {
     name: "Rahima",
     role: "Coordinatrice Principale & Superviseure",
+    status: "active" as const,
+    isMainAgent: true,
+    model: "gpt-4o",
+  },
+  {
+    name: "Auto-GPT Clone",
+    role: "Assistant Autonome & Exécution de Tâches",
     status: "active" as const,
     isMainAgent: true,
     model: "gpt-4o",
@@ -115,52 +122,71 @@ export const Dashboard = () => {
   }, [toast]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative overflow-hidden">
+    <div className="min-h-screen bg-[#0D0D0D] relative overflow-hidden">
       {/* Ambient background effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-500/20 via-transparent to-transparent blur-2xl"></div>
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full filter blur-[120px] animate-pulse"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full filter blur-[120px] animate-pulse delay-1000"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-teal-900/20"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full mix-blend-screen filter blur-[100px] animate-pulse"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full mix-blend-screen filter blur-[100px] animate-pulse delay-1000"></div>
       
       <div className="relative z-10 container mx-auto p-6">
         <motion.div 
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex items-center justify-between mb-8"
+          className="flex items-center justify-between mb-12"
         >
-          <div className="flex items-center gap-3">
-            <GitDialog />
-            <TerminalDialog />
-            <ChatDialog />
+          <div className="flex items-center gap-4">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex space-x-3"
+            >
+              <GitDialog />
+              <TerminalDialog />
+              <ChatDialog />
+            </motion.div>
           </div>
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text animate-gradient drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+          <motion.h1 
+            className="text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-teal-500 flex items-center gap-4"
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Brain className="w-16 h-16 text-purple-400 animate-pulse" />
             YouGha
-          </h1>
+            <Sparkles className="w-12 h-12 text-teal-400 animate-pulse" />
+          </motion.h1>
           <APIDialog />
         </motion.div>
 
-        <motion.div 
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4"
-        >
-          {agents.map((agent) => (
-            <motion.div 
-              key={agent.name} 
-              variants={item}
-              className="transform-gpu"
-            >
-              <AgentCard
-                name={agent.name}
-                role={agent.role}
-                status={agent.status}
-                isMainAgent={agent.isMainAgent}
-                model={agent.model}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
+        <AnimatePresence>
+          <motion.div 
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4"
+          >
+            {agents.map((agent, index) => (
+              <motion.div 
+                key={agent.name} 
+                variants={item}
+                className="transform-gpu hover:translate-y-[-5px] transition-transform duration-300"
+                style={{ 
+                  perspective: "1000px",
+                  transformStyle: "preserve-3d"
+                }}
+              >
+                <AgentCard
+                  name={agent.name}
+                  role={agent.role}
+                  status={agent.status}
+                  isMainAgent={agent.isMainAgent}
+                  model={agent.model}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
