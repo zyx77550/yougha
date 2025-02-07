@@ -1,3 +1,4 @@
+
 import { DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -61,9 +62,9 @@ export const APIDialog = () => {
   };
 
   return (
-    <DialogContent className="sm:max-w-[600px] bg-gradient-to-br from-gray-900/90 via-purple-900/30 to-gray-900/90 border border-purple-500/20">
+    <DialogContent className="sm:max-w-[600px] bg-gradient-to-br from-gray-900/90 via-amber-900/30 to-gray-900/90 border border-amber-500/20">
       <DialogHeader>
-        <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 text-transparent bg-clip-text">
+        <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-amber-200 to-orange-500 text-transparent bg-clip-text">
           Configuration des API
         </DialogTitle>
       </DialogHeader>
@@ -84,7 +85,7 @@ export const APIDialog = () => {
                 href={apiLinks[key as keyof typeof apiLinks]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
+                className="text-xs text-amber-400 hover:text-amber-300 transition-colors"
               >
                 Obtenir une clé
               </a>
@@ -94,7 +95,7 @@ export const APIDialog = () => {
               type="password"
               value={value}
               onChange={(e) => setApiKeys({ ...apiKeys, [key]: e.target.value })}
-              className="col-span-3 bg-purple-900/20 border-purple-500/30 focus:border-purple-400 transition-colors"
+              className="col-span-3 bg-amber-900/20 border-amber-500/30 focus:border-amber-400 transition-colors"
               placeholder={`${key} API key...`}
             />
           </motion.div>
@@ -102,7 +103,7 @@ export const APIDialog = () => {
       </div>
       <Button 
         onClick={handleSave}
-        className="w-full bg-gradient-to-r from-amber-500 to-purple-600 hover:from-amber-600 hover:to-purple-700 transition-all duration-300"
+        className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 transition-all duration-300"
       >
         Sauvegarder les clés API
       </Button>

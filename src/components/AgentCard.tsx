@@ -1,3 +1,4 @@
+
 import { Brain, Activity, Cpu, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -26,9 +27,9 @@ export const AgentCard = ({ name, role, status, isMainAgent, model }: AgentCardP
       className={cn(
         "p-6 rounded-2xl transition-all duration-300 backdrop-blur-xl border",
         isMainAgent 
-          ? "bg-gradient-to-br from-purple-900/90 via-blue-900/90 to-purple-900/90 border-purple-500/50 shadow-[0_0_30px_rgba(168,85,247,0.3)]" 
+          ? "bg-gradient-to-br from-amber-900/90 via-orange-800/90 to-amber-900/90 border-amber-500/50 shadow-[0_0_30px_rgba(251,191,36,0.3)]" 
           : "bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-900/90 border-gray-700/50",
-        "hover:shadow-[0_0_30px_rgba(168,85,247,0.2)]"
+        "hover:shadow-[0_0_30px_rgba(251,191,36,0.2)]"
       )}
     >
       <motion.div 

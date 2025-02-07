@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -52,7 +53,7 @@
   }
 
   .neon-glow {
-    box-shadow: 0 0 20px theme('colors.purple.500/40');
+    box-shadow: 0 0 20px theme('colors.amber.500/40');
   }
 
   .hover-scale {

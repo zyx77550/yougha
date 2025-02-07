@@ -99,6 +99,39 @@ export type Database = {
         }
         Relationships: []
       }
+      file_management: {
+        Row: {
+          created_at: string | null
+          file_path: string
+          file_type: string | null
+          id: string
+          last_accessed: string | null
+          last_modified: string | null
+          size: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          file_path: string
+          file_type?: string | null
+          id?: string
+          last_accessed?: string | null
+          last_modified?: string | null
+          size?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          file_path?: string
+          file_type?: string | null
+          id?: string
+          last_accessed?: string | null
+          last_modified?: string | null
+          size?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       health_check: {
         Row: {
           id: string
@@ -186,6 +219,36 @@ export type Database = {
         }
         Relationships: []
       }
+      process_monitoring: {
+        Row: {
+          cpu_usage: number | null
+          id: string
+          last_updated: string | null
+          memory_usage: number | null
+          process_name: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          cpu_usage?: number | null
+          id?: string
+          last_updated?: string | null
+          memory_usage?: number | null
+          process_name: string
+          status: string
+          user_id: string
+        }
+        Update: {
+          cpu_usage?: number | null
+          id?: string
+          last_updated?: string | null
+          memory_usage?: number | null
+          process_name?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       projects: {
         Row: {
           branches: number | null
@@ -218,6 +281,39 @@ export type Database = {
           name?: string
           repo_url?: string
           stars?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      system_operations: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          details: Json | null
+          id: string
+          operation_type: string
+          path: string | null
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string | null
+          details?: Json | null
+          id?: string
+          operation_type: string
+          path?: string | null
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string | null
+          details?: Json | null
+          id?: string
+          operation_type?: string
+          path?: string | null
+          status?: string | null
           user_id?: string
         }
         Relationships: []
