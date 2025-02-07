@@ -1,9 +1,10 @@
+
 import { motion } from "framer-motion";
 
 export const DashboardBackground = () => {
   return (
     <>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,0.8),rgba(88,28,135,0.2))]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.8),rgba(255,165,0,0.1))]"></div>
       <motion.div 
         animate={{ 
           scale: [1, 1.2, 1],
@@ -14,7 +15,7 @@ export const DashboardBackground = () => {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-screen filter blur-[100px]"
+        className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/20 rounded-full mix-blend-screen filter blur-[100px]"
       />
       <motion.div 
         animate={{ 
@@ -27,7 +28,7 @@ export const DashboardBackground = () => {
           ease: "easeInOut",
           delay: 1
         }}
-        className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/30 rounded-full mix-blend-screen filter blur-[100px]"
+        className="absolute bottom-0 right-1/4 w-96 h-96 bg-yellow-500/20 rounded-full mix-blend-screen filter blur-[100px]"
       />
     </>
   );

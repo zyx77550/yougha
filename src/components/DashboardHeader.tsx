@@ -38,14 +38,14 @@ export const DashboardHeader = () => {
       </motion.div>
 
       <motion.h1 
-        className="text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500 flex items-center gap-4"
+        className="text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-500 flex items-center gap-4"
         initial={{ scale: 0.9 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <Brain className="w-16 h-16 text-amber-400 animate-pulse" />
+        <Brain className="w-16 h-16 text-yellow-400 animate-pulse" />
         YouGha
-        <Sparkles className="w-12 h-12 text-amber-400 animate-pulse" />
+        <Sparkles className="w-12 h-12 text-yellow-400 animate-pulse" />
       </motion.h1>
 
       <motion.div
@@ -54,7 +54,7 @@ export const DashboardHeader = () => {
       >
         <Button
           onClick={handleCreateAutoGPT}
-          className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+          className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
         >
           <Plus className="w-4 h-4" />
           New Auto-GPT
