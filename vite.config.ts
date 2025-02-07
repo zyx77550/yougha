@@ -10,13 +10,13 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     strictPort: true,
     hmr: {
-      overlay: true
-    }
+      overlay: true,
+      clientPort: 8080
+    },
+    cors: true
   },
   plugins: [
-    react({
-      fastRefresh: true,
-    }),
+    react(),
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
