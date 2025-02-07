@@ -3,30 +3,49 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 
-// Supabase Configuration
+// Configuration Supabase
 const supabase = createClient(
   'https://vbtvubbdccreingqgfqk.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZidHZ1YmJkY2NyZWluZ3FnZnFrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg2MjgyNTEsImV4cCI6MjA1NDIwNDI1MX0.iHGcCQshSdqty54fU0EcJecUYNoL4n-70vX77cg3HkY'
 );
 
+let mainWindow: BrowserWindow | null = null;
+
 function createWindow() {
-  const mainWindow = new BrowserWindow({
+  // Création de la fenêtre principale
+  mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      webSecurity: false // Pour le développement seulement
+    },
+    show: false // Ne pas afficher jusqu'à ce que le contenu soit chargé
+  });
+
+  // Gestion du chargement
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.loadURL('http://localhost:8080').catch(console.error);
+    mainWindow.webContents.openDevTools();
+  } else {
+    mainWindow.loadFile(path.join(__dirname, '../dist/index.html')).catch(console.error);
+  }
+
+  // Afficher la fenêtre une fois le contenu chargé
+  mainWindow.once('ready-to-show', () => {
+    mainWindow?.show();
+  });
+
+  // Gestion des erreurs de chargement
+  mainWindow.webContents.on('did-fail-load', () => {
+    console.error('Échec du chargement de la fenêtre');
+    if (mainWindow) {
+      mainWindow.loadFile(path.join(__dirname, '../dist/index.html')).catch(console.error);
     }
   });
 
-  if (process.env.NODE_ENV === 'development') {
-    mainWindow.loadURL('http://localhost:8080');
-    mainWindow.webContents.openDevTools();
-  } else {
-    mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
-  }
-
-  // IPC Event Handlers for Supabase
+  // IPC Event Handlers pour Supabase
   ipcMain.handle('supabase-query', async (event, { action, data }) => {
     try {
       switch (action) {
@@ -50,16 +69,26 @@ function createWindow() {
   });
 }
 
-app.whenReady().then(() => {
-  createWindow();
-
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
-});
+// Gestion du cycle de vie de l'application
+app.whenReady().then(createWindow).catch(console.error);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
+});
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
+});
+
+// Gestion des erreurs non capturées
+process.on('uncaughtException', (error) => {
+  console.error('Erreur non capturée:', error);
+});
+
+process.on('unhandledRejection', (error) => {
+  console.error('Promesse rejetée non gérée:', error);
 });

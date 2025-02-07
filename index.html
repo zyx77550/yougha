@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,10 +11,15 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <base href="./">
+    <script>
+      window.global = window;
+      window.process = {
+        env: { NODE_ENV: "%MODE%" }
+      };
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -1,3 +1,4 @@
+
 {
   "appId": "com.yougha.app",
   "productName": "YouGha",
@@ -15,6 +16,10 @@
       "filter": ["**/*"]
     }
   ],
+  "asar": true,
+  "asarUnpack": [
+    "node_modules/**/*"
+  ],
   "mac": {
     "category": "public.app-category.developer-tools",
     "target": ["dmg", "zip"],
@@ -26,8 +31,14 @@
   },
   "win": {
     "target": [
-      "nsis",
-      "portable"
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      },
+      {
+        "target": "portable",
+        "arch": ["x64"]
+      }
     ],
     "icon": "build/icon.ico"
   },
@@ -44,6 +55,11 @@
     "oneClick": false,
     "allowToChangeInstallationDirectory": true,
     "createDesktopShortcut": true,
-    "createStartMenuShortcut": true
+    "createStartMenuShortcut": true,
+    "deleteAppDataOnUninstall": true
+  },
+  "publish": {
+    "provider": "generic",
+    "url": "https://example.com/auto-updates"
   }
 }
