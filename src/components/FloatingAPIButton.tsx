@@ -15,7 +15,7 @@ export const FloatingAPIButton = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        <button className="p-4 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:from-yellow-600 hover:to-orange-600">
+        <button className="p-4 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-black shadow-lg hover:shadow-xl transition-all duration-300 hover:from-yellow-600 hover:to-yellow-700">
           <KeySquare className="w-6 h-6" />
         </button>
       </motion.div>
