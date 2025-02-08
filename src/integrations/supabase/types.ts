@@ -285,6 +285,33 @@ export type Database = {
         }
         Relationships: []
       }
+      prompts: {
+        Row: {
+          content: string
+          created_at: string
+          generated_content: string | null
+          id: string
+          type: string
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          generated_content?: string | null
+          id?: string
+          type: string
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          generated_content?: string | null
+          id?: string
+          type?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       system_operations: {
         Row: {
           completed_at: string | null
